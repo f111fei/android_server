@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">请打开我</string>
+    <string name="server_port">8888</string>
+    <string-array name="apps">
+        <item>huoshan,8080</item>
+        <item>douyin,8081</item>
+    </string-array>
+</resources>
