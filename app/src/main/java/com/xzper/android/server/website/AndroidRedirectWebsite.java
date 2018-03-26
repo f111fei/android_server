@@ -3,8 +3,7 @@ package com.xzper.android.server.website;
 import android.content.Context;
 
 import com.example.xzper.server.R;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.SyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.xzper.android.server.Server;
 import com.yanzhenjie.andserver.view.OkView;
@@ -16,9 +15,6 @@ import org.apache.httpcore.HttpException;
 import org.apache.httpcore.HttpRequest;
 import org.apache.httpcore.HttpResponse;
 import org.apache.httpcore.protocol.HttpContext;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,7 +27,7 @@ import java.util.Map;
 public class AndroidRedirectWebsite implements WebSite {
 
     private static String key = "App";
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static SyncHttpClient client = new SyncHttpClient();
 
 
     private Map<String, String> apps = new HashMap<>();
@@ -63,7 +59,7 @@ public class AndroidRedirectWebsite implements WebSite {
     @Override
     public void handle(HttpRequest request, final HttpResponse response, HttpContext context) throws HttpException, IOException {
         String uri = request.getRequestLine().getUri();
-        uri = Server.getAddress().getHostAddress() + ":" + serverPort + uri;
+        uri = "http://" + Server.getAddress().getHostAddress() + ":" + serverPort + uri;
         Header[] headers = request.getHeaders(key);
         String appName = headers[0].getValue();
         String port = apps.get(appName);
